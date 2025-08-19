@@ -121,10 +121,11 @@ def add_favorite_planet(planet_id):
     planet = Planet.query.get(planet_id)
     if user is None or planet is None:
         return jsonify({"msg": "404 Not Found"}), 404
-    new_favorite = Favorite(user_id=user_id, planet_id=planet_id)
+    
+    new_favorite = Favorite(user_id=user_id, planet_id=planet_id) # This line was moved outside the if-else block
     db.session.add(new_favorite)
     db.session.commit()
-    return jsonify(new_favorite{"msg": "favorite added"}), 201
+    return jsonify({"msg": "favorite added"}), 201
 
 @app.route('/favorite/people/<int:people_id>', methods=['POST'])
 def add_favorite_people(people_id):
